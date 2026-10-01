@@ -21,5 +21,8 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 # Copiar los archivos compilados desde la etapa de construcción
 COPY --from=build /app/out .
 
+# FIX SonarCloud: Usar usuario no-root por seguridad
+USER app
+
 # Definir el comando de entrada para ejecutar la aplicación
 ENTRYPOINT ["dotnet", "Shorten.dll"]
