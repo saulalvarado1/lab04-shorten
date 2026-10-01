@@ -56,6 +56,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Usuario/Documents/si784-2026-ii-si784-2026-ii-lab04-saulalvarado1/src/Pages/UrlMapping/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXJsTWFwcGluZ1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/Documents/si784-2026-ii-si784-2026-ii-lab04-saulalvarado1/src/Pages/UrlMapping/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXJsTWFwcGluZ1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/Documents/si784-2026-ii-si784-2026-ii-lab04-saulalvarado1/src/Pages/UrlMapping/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXJsTWFwcGluZ1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/Documents/si784-2026-ii-si784-2026-ii-lab04-saulalvarado1/src/Pages/UrlMapping/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXJsTWFwcGluZ1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Usuario/Documents/si784-2026-ii-si784-2026-ii-lab04-saulalvarado1/src/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
