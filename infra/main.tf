@@ -28,19 +28,16 @@ provider "azurerm" {
   subscription_id = var.suscription_id
 }
 
-# Generate a random integer to create a globally unique name
 resource "random_integer" "ri" {
   min = 100
   max = 999
 }
 
-# Create the resource group
 resource "azurerm_resource_group" "rg" {
   name     = "upt-arg-${random_integer.ri.result}"
   location = "centralus"
 }
 
-# Create the Linux App Service Plan
 resource "azurerm_service_plan" "appserviceplan" {
   name                = "upt-asp-${random_integer.ri.result}"
   location            = azurerm_resource_group.rg.location
@@ -49,7 +46,6 @@ resource "azurerm_service_plan" "appserviceplan" {
   sku_name            = "F1"
 }
 
-# Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
   name                = "upt-awa-${random_integer.ri.result}"
   location            = azurerm_resource_group.rg.location
@@ -57,14 +53,15 @@ resource "azurerm_linux_web_app" "webapp" {
   service_plan_id     = azurerm_service_plan.appserviceplan.id
   depends_on          = [azurerm_service_plan.appserviceplan]
 
-  # CORRECCIÓN TFSEC 1: Forzar HTTPS obligatorio
   https_only          = true
+
+  identity {
+    type = "SystemAssigned"
+  }
 
   site_config {
     minimum_tls_version = "1.2"
     always_on           = false
-
-    # CORRECCIÓN TFSEC 2: Deshabilitar FTPS inseguro
     ftps_state          = "Disabled"
 
     application_stack {
@@ -81,12 +78,13 @@ resource "azurerm_mssql_server" "sqlsrv" {
   version                      = "12.0"
   administrator_login          = var.sqladmin_username
   administrator_login_password = var.sqladmin_password
-
-  # CORRECCIÓN TFSEC 3: Forzar versión TLS 1.2
   minimum_tls_version          = "1.2"
+
+  identity {
+    type = "SystemAssigned"
+  }
 }
 
-# CORRECCIÓN TFSEC 4: Restringir acceso solo a servicios internos de Azure
 resource "azurerm_mssql_firewall_rule" "sqlaccessrule" {
   name             = "AllowAllWindowsAzureIps"
   server_id        = azurerm_mssql_server.sqlsrv.id
