@@ -11,11 +11,42 @@ on:
       - 'src/**'
       - '.github/workflows/**'
   workflow_dispatch:
+
 permissions:
   contents: read
   packages: write
+
 jobs:
+  sonarcloud:
+    name: Escaneo de Vulnerabilidades SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Instalar SonarScanner
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+      - name: Ejecutar Analisis SonarCloud
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          dotnet-sonarscanner begin /k:"saulalvarado1_lab04-shorten" /o:"saulalvarado1" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build src/Shorten.csproj
+          dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+
   build:
+    needs: sonarcloud
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
